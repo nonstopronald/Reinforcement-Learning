@@ -1,7 +1,5 @@
 # Reinforcement-Learning
 
-## Project Directory Overview
-
 This project simulates and optimizes a call center environment using reinforcement learning techniques. Below is a description of each file and folder:
 
 - **`CallCentreEnvironment.py`**  
