@@ -1,0 +1,8 @@
+,Time,ID,Event,Staff_1,Staff_2,Event_Queue
+0,0.0,1,Arrival T1,0,0,"[[0.0001, 'Arrival T2'], [90, 'Arrival T1'], [184.6543769352231, 'Departure']]"
+1,0.0001,2,Arrival T2,1,0,"[[90, 'Arrival T1'], [129.44223146475815, 'Abandonment'], [130.0001, 'Arrival T2'], [184.6543769352231, 'Departure']]"
+2,90.0,3,Arrival T1,2,0,"[[129.44223146475815, 'Abandonment'], [184.6543769352231, 'Departure'], [130.0001, 'Arrival T2'], [203, 'Arrival T1'], [298.5418244364801, 'Abandonment']]"
+3,129.44223146475815,7,Abandonment,2,0,"[[130.0001, 'Arrival T2'], [184.6543769352231, 'Departure'], [298.5418244364801, 'Abandonment'], [203, 'Arrival T1']]"
+4,130.0001,6,Arrival T2,1,0,"[[184.6543769352231, 'Departure'], [203, 'Arrival T1'], [256.0001, 'Arrival T2'], [298.5418244364801, 'Abandonment'], [270.0295860098424, 'Departure']]"
+5,184.6543769352231,5,Departure,1,0,"[[203, 'Arrival T1'], [256.0001, 'Arrival T2'], [270.0295860098424, 'Departure'], [268.57428911652727, 'Departure']]"
+6,203.0,8,Arrival T1,1,0,"[[256.0001, 'Arrival T2'], [268.57428911652727, 'Departure'], [270.0295860098424, 'Departure'], [317, 'Arrival T1'], [489.66245282193466, 'Abandonment']]"
