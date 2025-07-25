@@ -1,0 +1,44 @@
+# syntax=docker/dockerfile:1.4
+
+# Base Image: No torch version pinned, using default pytorch:2.3.0.
+FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-devel
+ENV CUDA_HOME=/usr/local/cuda-12.1
+
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install python dependencies
+# stable-baselines3[extra] pulls in torch, pandas, matplotlib, etc.
+# seaborn is for plotting, and gym for the environment compatibility.
+RUN pip install --no-cache-dir \
+    seaborn \
+    gym \
+    "stable-baselines3[extra]"
+
+# Set up the application
+WORKDIR /app
+
+# Clone the repository
+RUN git clone https://github.com/nonstopronald/Reinforcement-Learning.git .
+
+# Create directories for output files and apply patches to the script for a runnable demo.
+# The patches do the following:
+# 1. Reduce PPO training timesteps from 4M to 400 for a quick run.
+# 2. Fix a typo in the PPO model loading path ('center' vs 'Centre').
+# 3. Comment out code that reads a missing CSV file to prevent a crash.
+RUN mkdir -p Project_Data/best_model Project_Data/logs Project_Data/ppo_logs && \
+    sed -i \
+        -e 's/total_timesteps=4000000/total_timesteps=400/' \
+        -e 's|model = PPO.load("./Project_Data/ppo_call_center")|model = PPO.load("./Project_Data/ppo_call_Centre")|' \
+        -e '/reward_history = pd.read_csv/s/^/# /' \
+        -e '/plt.plot(reward_history["Step"]/s/^/# /' \
+        CallCentreProject.ipynb
+
+# Set a non-interactive backend for matplotlib to prevent it from trying to open a GUI
+ENV MPLBACKEND=Agg
+
+# Run the experiment.
+# The main script is a .ipynb file but contains raw python code that can be executed directly.
+CMD ["python", "CallCentreProject.ipynb"]
